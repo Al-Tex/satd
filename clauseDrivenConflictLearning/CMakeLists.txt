@@ -1,0 +1,3 @@
+
+add_executable(clauseDrivenConflictLearning clauseDrivenConflictLearning.cpp)
+target_link_libraries(clauseDrivenConflictLearning PRIVATE memutils)
