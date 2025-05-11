@@ -80,12 +80,10 @@ void SAT_cdcl::initializeaza(char *file) {
   }
   f >> numarLiterali;
   f >> numarClauze;
-  numarLiteraliBifati = 0; // no literals assigned so far
-  // set the default values
+  numarLiteraliBifati = 0;
   kappa_antecedent = -1;
   nrAlegeri = 0;
   nesatisfiabilGasit = false;
-  // set the vectors to their appropriate sizes and initial values
   literali.clear();
   literali.resize(numarLiterali, -1);
   frecventaLiteral.clear();
@@ -260,7 +258,7 @@ int SAT_cdcl::analizaConflictAndBacktrack(int nivel_decizie) {
   do {
     nr_lit_nivel = 0;
     for (int i = 0; i < clauza_invatata.size(); i++) {
-      literal = literalToValoare(clauza_invatata[i]); // get the index
+      literal = literalToValoare(clauza_invatata[i]);
       if (nivelDecizieLiteral[literal] == nivel_decizie_conflict) {
         nr_lit_nivel++;
       }
@@ -274,7 +272,7 @@ int SAT_cdcl::analizaConflictAndBacktrack(int nivel_decizie) {
     }
     clauza_invatata = rezolventa(clauza_invatata, literal_ales);
   } while (true);
-  literaliPerClauza.push_back(clauza_invatata); // add the learnt clause to the list
+  literaliPerClauza.push_back(clauza_invatata);
   for (int i = 0; i < clauza_invatata.size(); i++) {
     int literal_index = literalToValoare(clauza_invatata[i]);
     int update = (clauza_invatata[i] > 0) ? 1 : -1;
@@ -402,19 +400,7 @@ void SAT_cdcl::showRezultat(int statusRezultat, char * argv[],long long elapsed,
     if (statusRezultat == SatState::SAT)
     {
       g << "SAT,";
-      /*for (int i = 0; i < literali.size(); i++) {
-        if (i != 0) {
-          g << " ";
-        }
-        if (literali[i] != -1) {
-          g << pow(-1, (literali[i] + 1)) * (i + 1);
-        } else // for literals which can take either value, arbitrarily assign
-               // them to be true
-        {
-          g << (i + 1);
-        }
-      }
-      g << " 0";*/
+
     } else
     {
       g << "UNSAT,";
